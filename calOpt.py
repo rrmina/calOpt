@@ -11,7 +11,6 @@ from matplotlib import pyplot as plt
 from models.VCN import VCN
 from utils.flowlib import read_flow, flow_to_image
 
-
 # Hyperparameters
 MAXDISP = 256                       # Maximum disparity to search over (along each direction)
 FAC=1                               # Shape of search window
