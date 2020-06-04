@@ -125,14 +125,14 @@ class WarpModule(nn.Module):
         return output*mask.unsqueeze(1).float(), mask
 
 
-class VCN(nn.Module):
+class VCN_small(nn.Module):
     """
     VCN.
     md defines maximum displacement for each level, following a coarse-to-fine-warping scheme
     fac defines squeeze parameter for the coarsest level
     """
     def __init__(self, size, md=[4,4,4,4,4], fac=1.):
-        super(VCN,self).__init__()
+        super(VCN_small,self).__init__()
         self.md = md
         self.fac = fac
         use_entropy = True
@@ -145,7 +145,7 @@ class VCN(nn.Module):
         fdima1 = 128 # 6/5/4
         fdima2 = 64 # 3/2
         fdimb1 = 16 # 6/5/4/3
-        fdimb2 = 12 # 2
+        # fdimb2 = 12 # 2
 
         full=False
         self.f6 = butterfly4D(fdima1, fdimb1,withbn=withbn,full=full)

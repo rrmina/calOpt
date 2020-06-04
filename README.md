@@ -7,7 +7,7 @@ python calOpt.py
 
 # Outputs
 * `flow_to_image.png`
-* `vector_on_image`
+* `vector_on_image.png`
 * `entropy.png`
 
 # Requirements
