@@ -174,6 +174,8 @@ if __name__ == '__main__':
     print(time.time() - start_time)
     print(tenOutput.shape)
 
+    
+
     objOutput = open(arguments_strOut, 'wb')
 
     numpy.array([ 80, 73, 69, 72 ], numpy.uint8).tofile(objOutput)
