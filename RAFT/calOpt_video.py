@@ -32,11 +32,13 @@ def load_image(imfile):
     img = np.array(Image.open(imfile)).astype(np.uint8)[..., :3]
     img = torch.from_numpy(img).permute(2, 0, 1).float()
     return pad8(img[None]).to(DEVICE)
+    # return pad8(tensor[None])
 
 def preprocess(img):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)                  # BGR TO RGB
     tensor = torch.from_numpy(img).permute(2,0,1).float()       # [H,W,C] to [C,H,W]
-    tensor = pad8(tensor[None]).to(DEVICE)  
+    tensor = pad8(tensor[None]).to(DEVICE)
+    # tensor = pad8(tensor[None])
     return tensor
 
 def postprocess(flow,w,h):
@@ -64,12 +66,9 @@ def demo(args):
     model = RAFT(args)
     model = torch.nn.DataParallel(model)
     model.load_state_dict(torch.load(args.model))
-
+    
     model.to(DEVICE)
     model.eval()
-
-    arr = []
-
     
     with torch.no_grad():
 
@@ -83,10 +82,10 @@ def demo(args):
             right_tensor = preprocess(right_frame)
 
             start1 = time.time()
-            flow_predictions = model(left_tensor, right_tensor, iters=args.iters, upsample=False)
+            flow_predictions = model(left_tensor, right_tensor, iters=args.iters, upsample=True)
             print(time.time() - start1)
 
-            flow_image = postprocess(flow_predictions,w,h)
+            flow_image = postprocess(flow_predictions,w*2,h*2)
             cv2.imshow('frame', flow_image)
 
 

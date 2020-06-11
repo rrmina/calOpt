@@ -60,8 +60,8 @@ def demo(args):
     with torch.no_grad():
 
         # sintel images
-        image1 = load_image('images/image1.png')
-        image2 = load_image('images/image2.png')
+        image1 = load_image('images/image3.png')
+        image2 = load_image('images/image4.png')
 
         start1 = time.time()    
         flow_predictions = model(image1, image2, iters=args.iters, upsample=False)
