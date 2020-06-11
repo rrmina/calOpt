@@ -99,8 +99,10 @@ def batch_calOpt(args):
         for left, right in image_loader:
             # Most of the time, this preprocessing is not needed
             # Especially if the video dimensions are multiple of 8s
-            left = pad8(left)
-            right = pad8(right)
+            _, _, h, w = left.shape
+            if ((h % 8 != 0) or (w % 8 != 0)):
+                left = pad8(left)
+                right = pad8(right)
 
             # Forward
             flow_predictions = model(left, right, iters=args.iters, upsample=False)
